@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS to_do_list;
 USE to_do_list;
 CREATE TABLE Users
 (
-    id INT PRIMARY KEY NOT NULL,
+    id INT PRIMARY KEY AUTO_INCREMENT,
     userName VARCHAR(100),
     userEmail VARCHAR(255),
     userPassword VARCHAR(100)
@@ -12,14 +12,14 @@ CREATE TABLE Users
 
 CREATE TABLE Lists
 (
-    idList INT PRIMARY KEY NOT NULL,
+    idList INT PRIMARY KEY AUTO_INCREMENT,
     listName VARCHAR(100),
     idUser INT,
     FOREIGN KEY (idUser) REFERENCES Users(id)
 );
 CREATE TABLE Tasks
 (
-    idTask INT PRIMARY KEY NOT NULL,
+    idTask INT PRIMARY KEY AUTO_INCREMENT,
     taskName VARCHAR(100),
     idList INT,
     FOREIGN KEY (idList) REFERENCES Lists(idList)
