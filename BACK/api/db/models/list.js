@@ -3,25 +3,43 @@ const db = require("../config/config");
 class List {
   constructor(listData) {
     this.idList = listData.idList;
-    this.listName = list.listName;
-    this.idUser = list.idUser;
+    this.listName = listData.listName;
+    this.idUser = listData.idUser;
   }
-  //   static getById(id, cb) {
-  //     db.query(
-  //       `SELECT id , userEmail , userName FROM Users WHERE id = ?`,
-  //       id,
-  //       (err, result) => {
-  //         if (err) throw err;
-  //         console.log("getUserById", result);
-  //         return cb(result[0]);
-  //         // if (result.length > 0) {
-  //         //   return cb(result[0]);
-  //         // } else {
-  //         //   return cb(result);
-  //         // }
-  //       }
-  //     );
-  //   }
+  //getAll list whit idUser
+  static getAll(id, cb) {
+    db.query(`SELECT * FROM Lists WHERE idUser = ?`, id, (err, result) => {
+      if (err) throw err;
+      if (result.length > 0) return cb(result);
+      console.log("tutu");
+      return cb(null);
+    });
+  }
+  static getById(id, cb) {
+    db.query(
+      `SELECT idList , ListName , idUser FROM Lists WHERE idList = ?`,
+      id,
+      (err, result) => {
+        if (err) throw err;
+        console.log("getUserById", result);
+        return cb(result[0]);
+        // if (result.length > 0) {
+        //   return cb(result[0]);
+        // } else {
+        //   return cb(result);
+        // }
+      }
+    );
+  }
+  static update(data, cb) {
+    db.query(
+      `UPDATE Lists SET ListName = ${data.ListName} WHERE idList = ${data.idList}`,
+      (err, result) => {
+        if (err) throw err;
+        cb(result);
+      }
+    );
+  }
   //   static findByEmail(data, cb) {
   //     db.query(
   //       `SELECT * FROM Users WHERE userEmail = '${data}'`,
@@ -38,14 +56,16 @@ class List {
   //     );
   //   }
 
-  static createList(cb) {
-    console.log("tutu");
-    let sql = `INSERT INTO Lists ( listName, idUser) VALUES ('${data.listName}', '${data.idUser}')`;
+  createList(cb) {
+    console.log(this.listName, "listData");
+    let sql = `INSERT INTO Lists ( listName, idUser) VALUES ('${this.listName}', '${this.idUser}')`;
 
     db.query(sql, function (err, result) {
       if (err) throw err;
-      console.log(result, "ici");
-      return cb(result);
+      //   console.log(result, "ici");
+
+      if (result) return cb(result);
+      return cb(null);
     });
   }
 }

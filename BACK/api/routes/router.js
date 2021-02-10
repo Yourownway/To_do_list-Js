@@ -11,7 +11,13 @@ class Router {
 
     router.route("/user/:id").get(userController.getUserById);
 
-    router.route("/user/:id/create").post(listController.createNewList);
+    router.route("/list/:idList").get(listController.getListById);
+    router.route("/lists/:idUser").get(listController.getAllList);
+    router.route("/list/create/:idUser").post(listController.createNewList);
+    router
+      .route("/list/:idList/update/:idUser")
+      .patch(listController.updateList);
+
     return router;
   }
 }
