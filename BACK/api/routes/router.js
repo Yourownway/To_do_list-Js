@@ -17,6 +17,9 @@ class Router {
     router
       .route("/list/:idList/update/:idUser")
       .patch(listController.updateList);
+    router
+      .route("/list/:idList/delete/:idUser")
+      .delete(listController.deleteList);
 
     return router;
   }

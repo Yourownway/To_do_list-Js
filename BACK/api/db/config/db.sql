@@ -15,7 +15,8 @@ CREATE TABLE Lists
     idList INT PRIMARY KEY AUTO_INCREMENT,
     listName VARCHAR(100),
     idUser INT,
-    FOREIGN KEY (idUser) REFERENCES Users(id)
+    FOREIGN KEY (idUser) REFERENCES Users(id) 
+    ON DELETE CASCADE
 );
 CREATE TABLE Tasks
 (
@@ -23,6 +24,7 @@ CREATE TABLE Tasks
     taskName VARCHAR(100),
     idList INT,
     FOREIGN KEY (idList) REFERENCES Lists(idList)
+    ON DELETE CASCADE
 );
 
 INSERT INTO Users (`id`, `userName`, `userEmail`, `userPassword`) VALUES 

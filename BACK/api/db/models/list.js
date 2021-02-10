@@ -32,11 +32,24 @@ class List {
     );
   }
   static update(data, cb) {
+    console.log(data);
     db.query(
-      `UPDATE Lists SET ListName = ${data.ListName} WHERE idList = ${data.idList}`,
+      `UPDATE Lists SET ListName = '${data.listName}' WHERE idList = ${data.idList}`,
       (err, result) => {
         if (err) throw err;
-        cb(result);
+
+        return cb(result);
+      }
+    );
+  }
+
+  static delete(data, cb) {
+    db.query(
+      `DELETE FROM Lists WHERE idList = ${data.idList}`,
+      (err, result) => {
+        if (err) throw err;
+        if (result.affectedRows == 0) return cb(null);
+        return cb(result);
       }
     );
   }

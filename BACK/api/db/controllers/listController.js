@@ -37,9 +37,27 @@ exports.getAllList = async (req, res) => {
 
 exports.updateList = async (req, res) => {
   let { idUser, idList } = (data = req.params);
-  let { listName } = (data = req.body);
+  data.listName = req.body.listName;
+
   console.log(data);
+  console.log(data, "data");
   await List.update(data, (result) => {
-    console.log(result, "result");
+    if (!result)
+      return res.status(500).json({ err: "modification impossible" });
+    return res
+      .status(200)
+      .json({ succes: `nom de la list modifié: ${data.listName}` });
+  });
+};
+
+exports.deleteList = async (req, res) => {
+  let { idUser, idList } = (data = req.params);
+  console.log("tutu");
+  await List.delete(data, (result) => {
+    if (!result)
+      return res
+        .status(500)
+        .json({ err: ` la list id: ${data.idList} n'exsiste pas ` });
+    return res.status(200).json({ succes: "list supprimé" });
   });
 };
