@@ -21,15 +21,15 @@ class Router {
       .route("/list/:idList/delete/:idUser")
       .delete(listController.deleteList);
 
-    router.route("/task/:idTask").get(taskController.getLTaskById);
+    router.route("/task/:idTask").get(taskController.getTaskById);
     router.route("/task/:idTask").get(taskController.getAllTask);
     router.route("/task/create/:idUser").post(taskController.createNewTask);
     router
       .route("/task/:idTask/update/:idUser")
-      .patch(taskController.updatetask);
+      .patch(taskController.updateTask);
     router
       .route("/task/:idTask/delete/:idUser")
-      .delete(taskController.deletetask);
+      .delete(taskController.deleteTask);
     return router;
   }
 }

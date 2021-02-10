@@ -83,34 +83,3 @@ class List {
   }
 }
 module.exports = List;
-
-// module.exports = {
-//   findByEmail: (data, cb) => {
-//     db.query(
-//       `SELECT userEmail FROM Users WHERE userEmail = '${data}'`,
-//       data,
-//       (err, result) => {
-//         if (err) throw err;
-
-//         if (result.length > 0) {
-//           console.log(result, "tutu");
-//           return cb(result[0].userEmail);
-//         } else {
-//           console.log("models", result);
-//           return cb(result);
-//         }
-//       }
-//     );
-//   },
-
-//   createUser(data) {
-//     db.query(
-//       `INSERT INTO Users VALUES (userEmail, userPassword, userName)`,
-//       data,
-//       function (err, row) {
-//         console.log(err, "error");
-//         if (err) throw err;
-//         return data;
-//       }
-//     )}
-// };
