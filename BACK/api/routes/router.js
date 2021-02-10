@@ -1,7 +1,7 @@
 const authController = require("../db/controllers/authController");
 const userController = require("../db/controllers/userController");
 const listController = require("../db/controllers/listController");
-
+const taskController = require("../db/controllers/taskController");
 class Router {
   constructor(express) {
     const router = express.Router();
@@ -21,6 +21,15 @@ class Router {
       .route("/list/:idList/delete/:idUser")
       .delete(listController.deleteList);
 
+    router.route("/task/:idTask").get(taskController.getLTaskById);
+    router.route("/task/:idTask").get(taskController.getAllTask);
+    router.route("/task/create/:idUser").post(taskController.createNewTask);
+    router
+      .route("/task/:idTask/update/:idUser")
+      .patch(taskController.updatetask);
+    router
+      .route("/task/:idTask/delete/:idUser")
+      .delete(taskController.deletetask);
     return router;
   }
 }
