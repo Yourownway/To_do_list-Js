@@ -2,9 +2,46 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 export default function Carousel() {
   const Wrapper = styled.div`
+    width: 100vw;
+    height: 100vh;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid blue;
+  `;
+  const Scene = styled.div`
+    position: relative;
+    width: 210px;
+    height: 300px;
+    margin: auto;
+    perspective: 1000px;
   `;
 
+  const Cards = styled.div`
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform: translateZ(-288px);
+    transform-style: preserve-3d;
+    transition: transform 1s;
+    background-color: red;
+  `;
+
+  const Card = styled.div`
+    position: absolute;
+    width: 190px;
+    height: 300px;
+    left: 10px;
+    top: 10px;
+    border: 2px solid black;
+    line-height: 116px;
+    font-size: 80px;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+    transition: transform 1s, opacity 1s;
+    background-color: red;
+  `;
   let projects = ["1", "2", "3", "4", "5"];
   const refCarousel = useRef(null);
 
@@ -38,15 +75,13 @@ export default function Carousel() {
   }, []);
   return (
     <Wrapper>
-      <div className="projects__scene">
-        <div ref={refCarousel} className="projects__carousel">
+      <Scene>
+        <Cards ref={refCarousel}>
           {projects.map((x) => (
-            <div key={projects.indexOf(x)} className="projects__carousel__cell">
-              {projects.length}
-            </div>
+            <Card key={projects.indexOf(x)}>{projects.length}</Card>
           ))}
-        </div>
-      </div>
+        </Cards>
+      </Scene>
       <button onClick={() => handleChange(1)}>NEXT</button>
       <button onClick={() => handleChange(-1)}>Prev</button>
     </Wrapper>

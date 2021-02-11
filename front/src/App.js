@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import Home from "./components/Home";
+import styled from "styled-components";
 
-export default class App extends Component {
-  render() {
-    return (
-      <div>
-        <Home />
-      </div>
-    );
-  }
+export default function App() {
+  return (
+    <div>
+      <Home />
+    </div>
+  );
 }
