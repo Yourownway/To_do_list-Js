@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default function Carousel() {
   const Wrapper = styled.div`
     width: 100vw;
-    height: 100vh;
+    height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,6 +11,7 @@ export default function Carousel() {
   `;
   const Scene = styled.div`
     position: relative;
+    border: solid red;
     width: 210px;
     height: 300px;
     margin: auto;
@@ -24,10 +25,10 @@ export default function Carousel() {
     transform: translateZ(-288px);
     transform-style: preserve-3d;
     transition: transform 1s;
-    background-color: red;
   `;
 
   const Card = styled.div`
+    cursor: pointer;
     position: absolute;
     width: 190px;
     height: 300px;
@@ -40,7 +41,8 @@ export default function Carousel() {
     color: white;
     text-align: center;
     transition: transform 1s, opacity 1s;
-    background-color: red;
+    background-color: blue;
+    opacity: 0.5;
   `;
   let projects = ["1", "2", "3", "4", "5"];
   const refCarousel = useRef(null);
