@@ -1,2 +1,2 @@
 export const green = "#00FFFF";
-export const black = "#FFFFFF";
+export const background = "#000000";
