@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import * as theme from "../../config/theme";
 export default function Carousel() {
+  let [style, setStyle] = useState("");
   const Wrapper = styled.div`
     width: 100vw;
     height: 85vh;
@@ -71,15 +72,11 @@ export default function Carousel() {
 
     /* transition: transform 1s, opacity 1s; */
     background-color: blue;
+    transition: transform 2s;
 
     opacity: 0.5;
     &:hover {
       background-color: red;
-
-      animation: ${(props) =>
-        props.index == selectedIndex % projects.length
-          ? `${selected} 2s linear forwards'`
-          : ""};
     }
     &::after {
       content: "";
@@ -94,13 +91,13 @@ export default function Carousel() {
     }
   `;
 
-  let projects = ["1", "2", "3", "4", "5"];
+  let projects = ["0", "1", "2", "3", "4", "5"];
   const refCarousel = useRef(null);
   const refCard = useRef(null);
   const cellCount = projects.length;
   let selectedIndex = 0;
   let translate, angle;
-
+  let clicked = true;
   const rotateCarousel = () => {
     let angle = (selectedIndex / cellCount) * -360;
 
@@ -109,19 +106,45 @@ export default function Carousel() {
     translate = Math.round(
       child[0].clientWidth / Math.tan(Math.PI / cellCount)
     );
-    console.log(selectedIndex % projects.length, "modulo");
-    console.log(refCard, "refCard");
-    console.log(selectedIndex, selectedIndex);
+
     refCarousel.current.style.transform =
       `translateZ(-${translate}px) rotateY(` + angle + "deg)";
-    console.log("angle:", angle, "translate:", translate);
   };
 
   const handleChange = (i) => {
     selectedIndex += i;
     rotateCarousel();
-    console.log(selectedIndex);
-    console.log(projects.length);
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    let indexOfCard = parseInt(e.target.id.substring(5), 10);
+    let angle = (selectedIndex / cellCount) * 180;
+
+    if (indexOfCard === selectedIndex % projects.length) {
+      if (clicked) {
+        console.log(style, "style");
+        e.target.style.transform += `scale(2) `;
+        console.log(e);
+        console.log(angle);
+        return (clicked = false);
+      }
+      if (!clicked) {
+        console.log(e.target.style.transform);
+        e.target.style.transform = `rotateY(${
+          (selectedIndex * 360) / projects.length
+        }deg) translateZ(312px)`;
+        console.log(e.target.style.transform);
+        return (clicked = true);
+      }
+    }
+
+    // if (!clicked) {
+    //   console.log("tutu");
+    //
+    //   return (clicked = true);
+    // }
   };
   useEffect(() => {
     // selectedIndex = 0;
@@ -141,9 +164,10 @@ export default function Carousel() {
         <Cards ref={refCarousel}>
           {projects.map((x) => (
             <Card
-              index={projects.indexOf}
+              id={`card_${projects.indexOf(x)}`}
+              index={projects.indexOf(x)}
               ref={refCard}
-              onClick={(e) => console.log(e)}
+              onClick={(e) => handleClick(e)}
               key={projects.indexOf(x)}
             >
               {projects.indexOf(x)}
