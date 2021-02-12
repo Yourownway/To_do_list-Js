@@ -1,3 +1,3 @@
 export const green = "#00FFFF";
-export const background = "#000000";
+export const background = "#FFFFFF";
 export const translateZ = "0";

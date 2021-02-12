@@ -56,6 +56,10 @@ export default function Carousel() {
       }
   }`;
   const Card = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: space-around;
     cursor: pointer;
     position: absolute;
     border: solid white;
@@ -89,6 +93,14 @@ export default function Carousel() {
       /* filter: blur(4px); */
       background: radial-gradient(white, transparent);
     }
+  `;
+
+  const Button = styled.button`
+    font-size: 1rem;
+    color: black;
+    width: 50px;
+    height: 40px;
+    background-color: white;
   `;
 
   let projects = ["0", "1", "2", "3", "4", "5"];
@@ -125,7 +137,7 @@ export default function Carousel() {
     if (indexOfCard === selectedIndex % projects.length) {
       if (clicked) {
         console.log(style, "style");
-        e.target.style.transform += `scale(2) `;
+        e.target.style.transform += `scale(1.5) `;
         console.log(e);
         console.log(angle);
         return (clicked = false);
@@ -139,12 +151,6 @@ export default function Carousel() {
         return (clicked = true);
       }
     }
-
-    // if (!clicked) {
-    //   console.log("tutu");
-    //
-    //   return (clicked = true);
-    // }
   };
   useEffect(() => {
     // selectedIndex = 0;
@@ -170,7 +176,16 @@ export default function Carousel() {
               onClick={(e) => handleClick(e)}
               key={projects.indexOf(x)}
             >
-              {projects.indexOf(x)}
+              <h1>{projects.indexOf(x)}</h1>
+
+              <Button
+                onClick={(e) => {
+                  console.log(e);
+                }}
+              >
+                {" "}
+                click me
+              </Button>
             </Card>
           ))}
         </Cards>
