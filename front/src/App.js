@@ -21,7 +21,7 @@ export default function App() {
           <Route path="/Home">
             <Carousel />
           </Route>
-          <Route path="/List">
+          <Route path="/">
             <List />
           </Route>
         </Switch>

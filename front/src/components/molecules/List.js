@@ -12,16 +12,24 @@ export default function List() {
     width: 100%;
     background-color: ${(props) => props.theme.green};
   `;
+  const onDragEnd = (result) => {};
   return (
     <>
       <Wrapper>
-        <h1>hello</h1>
-        {state.columnOrder.map((columnId) => {
-          column = state.columns[columnId];
-          tasks = column.taskIds.map((taskId) => state.tasks[taskId]);
+        <DragDropContext onDragEnd={onDragEnd}>
+          {state.columnOrder.map((columnId) => {
+            column = state.columns[columnId];
+            tasks = column.taskIds.map((taskId) => state.tasks[taskId]);
 
-          return <Column column={state.columns[columnId]} tasks={tasks} />;
-        })}
+            return (
+              <Column
+                key={column.id}
+                column={state.columns[columnId]}
+                tasks={tasks}
+              />
+            );
+          })}
+        </DragDropContext>
       </Wrapper>
     </>
   );
