@@ -17,19 +17,19 @@ export default function Column({ column, tasks }) {
   const TaskList = styled.div`
     padding: 8px;
   `;
-
+  console.log(tasks);
   return (
     <Container>
       <Title>{column.title}</Title>
-      <Droppable droppableId={column.id}>
-        {(provided) => {
-          <TaskList ref={provided.innerRef} {...provided.droppableProps}>
+      <Droppable droppableId="droppable-1">
+        {(provided, snapshot) => (
+          <div ref={provided.innerRef} {...provided.droppableProps}>
             {tasks.map((task, index) => (
               <Task key={task.id} task={task} index={index} />
             ))}
             {provided.placeholder}
-          </TaskList>;
-        }}
+          </div>
+        )}
       </Droppable>
     </Container>
   );

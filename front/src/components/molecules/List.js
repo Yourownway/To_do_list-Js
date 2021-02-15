@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { DragDropContext } from "react-beautiful-dnd";
 import initTaskData from "./data";
 import Column from "../atoms/Column";
@@ -12,24 +12,22 @@ export default function List() {
     width: 100%;
     background-color: ${(props) => props.theme.green};
   `;
-  const onDragEnd = (result) => {};
+
   return (
     <>
       <Wrapper>
-        <DragDropContext onDragEnd={onDragEnd}>
-          {state.columnOrder.map((columnId) => {
-            column = state.columns[columnId];
-            tasks = column.taskIds.map((taskId) => state.tasks[taskId]);
+        {state.columnOrder.map((columnId) => {
+          column = state.columns[columnId];
+          tasks = column.taskIds.map((taskId) => state.tasks[taskId]);
 
-            return (
-              <Column
-                key={column.id}
-                column={state.columns[columnId]}
-                tasks={tasks}
-              />
-            );
-          })}
-        </DragDropContext>
+          return (
+            <Column
+              key={column.id}
+              column={state.columns[columnId]}
+              tasks={tasks}
+            />
+          );
+        })}
       </Wrapper>
     </>
   );

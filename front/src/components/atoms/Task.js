@@ -10,17 +10,18 @@ const Container = styled.div`
   margin-bottom: 8px;
 `;
 export default function Task({ task, index }) {
+  console.log(task, index, "Task");
   return (
     <Draggable draggableId={task.id} index={index}>
-      {(provided) => {
-        <Container
+      {(provided) => (
+        <div
+          ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
-          ref={provided.innerRef}
         >
-          {task.content}
-        </Container>;
-      }}
+          <p>task.content</p>
+        </div>
+      )}
     </Draggable>
   );
 }
