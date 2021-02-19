@@ -13,9 +13,10 @@ exports.createNewList = async (req, res) => {
       return res
         .status(400)
         .json({ err: `impossible de crée la list ${newList.listName}` });
-    return res
-      .status(200)
-      .json({ succes: ` la list ${newList.listName} à été crée avec succès` });
+    return res.status(200).json({
+      succes: ` la list ${newList.listName} à été crée avec succès`,
+      newList,
+    });
   });
 };
 
@@ -31,6 +32,7 @@ exports.getAllList = async (req, res) => {
   await List.getAll(idUser, (result) => {
     if (!result)
       return res.status(400).json({ err: "Vous n'avez pas encore de list" });
+    console.log(result, "ssssssssssssssss");
     return res.status(200).json({ lists: result });
   });
 };

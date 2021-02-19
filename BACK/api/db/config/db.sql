@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS to_do_list;
 USE to_do_list;
 CREATE TABLE Users
 (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     userName VARCHAR(100),
     userEmail VARCHAR(255),
     userPassword VARCHAR(100)
@@ -21,6 +21,7 @@ CREATE TABLE Lists
 CREATE TABLE Tasks
 (
     idTask INT PRIMARY KEY AUTO_INCREMENT,
+    idColumn INT NOT NULL, 
     taskName VARCHAR(100),
     idList INT,
     FOREIGN KEY (idList) REFERENCES Lists(idList)
@@ -37,7 +38,7 @@ INSERT INTO Lists (`idList`, `ListName`, `idUser`) VALUES
 (20,'Projet Portfolio',2);
 
 
-INSERT INTO Tasks (`idTask`, `taskName`, `idList`) VALUES 
-(100,'Mettre en place la db', 10),
-(101,'Mettre en place l authentification', 10),
-(102,'Mettre en place les requettes', 10);
+INSERT INTO Tasks (`idTask`, `idColumn`,`taskName`, `idList`) VALUES 
+(100,1,'Mettre en place la db', 10),
+(101,2,'Mettre en place l authentification', 10),
+(102,2,'Mettre en place les requettes', 10);

@@ -8,7 +8,7 @@ class List {
   }
   //getAll list whit idUser
   static getAll(id, cb) {
-    db.query(`SELECT * FROM Lists WHERE idUser = ?`, id, (err, result) => {
+    db.query(`SELECT idList FROM Lists WHERE idUser = ?`, id, (err, result) => {
       if (err) throw err;
       if (result.length > 0) return cb(result);
       console.log("tutu");

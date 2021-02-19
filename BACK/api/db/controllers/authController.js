@@ -12,28 +12,31 @@ const checkEmail = (data) => {
 };
 
 exports.signUp = async (req, res) => {
-  let { email, firstName, password } = (data = req.body);
-  console.log(firstName);
-  await checkEmail(data.email).then((result) => {
+  let { userEmail, userName, userPassword } = (data = req.body);
+  console.log(userName);
+  await checkEmail(userEmail).then((result) => {
+    console.log(result, "result");
     if (result.length !== 0) {
-      console.log(result);
-      return res.status(500).json({ err: `${result} exsiste deja` });
+      return res.status(500).json({ err: `${result.userEmail} exsiste deja` });
     } else {
       const saltRounds = 10;
 
-      bcrypt.hash(password, saltRounds, function (err, hash) {
+      bcrypt.hash(userPassword, saltRounds, function (err, hash) {
         if (err) throw err;
         if (hash) {
-          password = hash;
-
-          let newUser = new User({ email, password, firstName });
-
-          if (newUser)
-            newUser.createUser((result) => {
+          console.log(data, "data");
+          let newUser = new User(data);
+          newUser.userPassword = hash;
+          console.log(newUser, "newUser");
+          if (newUser) console.log(newUser, "ici");
+          newUser.createUser((result) => {
+            console.log(result, "result");
+            if (result) {
               return res
                 .status(200)
-                .json({ succes: `${newUser.email} ajouter à la DB` });
-            });
+                .json({ succes: `${newUser.userEmail} ajouter à la DB` });
+            }
+          });
         }
       });
     }
@@ -41,29 +44,27 @@ exports.signUp = async (req, res) => {
 };
 
 exports.signIn = async (req, res) => {
-  let { email, firstName, password } = (data = req.body);
-  console.log(firstName);
-  await checkEmail(data.email).then((result) => {
-    console.log(result);
+  let { userEmail, userPassword } = (data = req.body);
+
+  await checkEmail(data.userEmail).then((result) => {
+    console.log(result, "rEsult");
     if (result.length == 0) {
-      console.log(result);
       return res
         .status(500)
-        .json({ err: `${data.email} n'est pas enregistré dans la db` });
+        .json({ err: `${data.userEmail} n'est pas enregistré dans la db` });
     } else {
-      bcrypt
-        .compare(data.password, result.userPassword)
-        .then(function (result) {
-          if (result == true) {
-            console.log("GG");
-            let newUser = new User({ email, password, firstName });
-            console.log(newUser);
+      bcrypt.compare(
+        data.userPassword,
+        result.userPassword,
+        (err, validate) => {
+          if (validate) {
+            let newUser = new User(result);
+            console.log(newUser, "GG");
             if (newUser)
-              return res
-                .status(200)
-                .json({ succes: `Bienvenu ${newUser.firstName} ` });
+              return res.status(200).json({ id: newUser.id, token: 1 });
           } else res.status(500).json({ err: `error mot de passe` });
-        });
+        }
+      );
     }
   });
 };
