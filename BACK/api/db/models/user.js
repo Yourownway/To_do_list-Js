@@ -13,7 +13,6 @@ class User {
       id,
       (err, result) => {
         if (err) throw err;
-        console.log("getUserById", result);
         return cb(result[0]);
       }
     );
@@ -26,10 +25,8 @@ class User {
         if (err) throw err;
 
         if (result.length > 0) {
-          console.log("ok");
           return cb(result[0]);
         } else {
-          console.log("pas ok");
           return cb(result);
         }
       }
@@ -41,7 +38,6 @@ class User {
 
     db.query(sql, function (err, result) {
       if (err) throw err;
-      console.log(result, "ici");
       return cb(result);
     });
   }

@@ -2,13 +2,10 @@ const List = require("../models/list");
 
 exports.createNewList = async (req, res) => {
   let { listName } = req.body;
-  console.log(listName);
   let { idUser } = req.params;
 
   let newList = new List({ listName, idUser });
-  console.log(newList);
   await newList.createList((result) => {
-    console.log(result, "<=======");
     if (result === null)
       return res
         .status(400)
@@ -22,7 +19,6 @@ exports.createNewList = async (req, res) => {
 
 exports.getListById = async (req, res) => {
   let { idList } = req.params;
-  console.log(idList, "idList");
   List.getById(idList, (result) => res.status(200).json({ list: result }));
 };
 
@@ -32,7 +28,6 @@ exports.getAllList = async (req, res) => {
   await List.getAll(idUser, (result) => {
     if (!result)
       return res.status(400).json({ err: "Vous n'avez pas encore de list" });
-    console.log(result, "ssssssssssssssss");
     return res.status(200).json({ lists: result });
   });
 };
@@ -41,8 +36,6 @@ exports.updateList = async (req, res) => {
   let { idUser, idList } = (data = req.params);
   data.listName = req.body.listName;
 
-  console.log(data);
-  console.log(data, "data");
   await List.update(data, (result) => {
     if (!result)
       return res.status(500).json({ err: "modification impossible" });
@@ -54,7 +47,7 @@ exports.updateList = async (req, res) => {
 
 exports.deleteList = async (req, res) => {
   let { idUser, idList } = (data = req.params);
-  console.log("tutu");
+
   await List.delete(data, (result) => {
     if (!result)
       return res

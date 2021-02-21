@@ -8,10 +8,10 @@ class List {
   }
   //getAll list whit idUser
   static getAll(id, cb) {
-    db.query(`SELECT idList FROM Lists WHERE idUser = ?`, id, (err, result) => {
+    db.query(`SELECT *  FROM Lists WHERE idUser = ?`, id, (err, result) => {
       if (err) throw err;
       if (result.length > 0) return cb(result);
-      console.log("tutu");
+
       return cb(null);
     });
   }
@@ -21,18 +21,12 @@ class List {
       id,
       (err, result) => {
         if (err) throw err;
-        console.log("getUserById", result);
+
         return cb(result[0]);
-        // if (result.length > 0) {
-        //   return cb(result[0]);
-        // } else {
-        //   return cb(result);
-        // }
       }
     );
   }
   static update(data, cb) {
-    console.log(data);
     db.query(
       `UPDATE Lists SET ListName = '${data.listName}' WHERE idList = ${data.idList}`,
       (err, result) => {
@@ -53,29 +47,12 @@ class List {
       }
     );
   }
-  //   static findByEmail(data, cb) {
-  //     db.query(
-  //       `SELECT * FROM Users WHERE userEmail = '${data}'`,
-
-  //       (err, result) => {
-  //         if (err) throw err;
-
-  //         if (result.length > 0) {
-  //           return cb(result[0]);
-  //         } else {
-  //           return cb(result);
-  //         }
-  //       }
-  //     );
-  //   }
 
   createList(cb) {
-    console.log(this.listName, "listData");
     let sql = `INSERT INTO Lists ( listName, idUser) VALUES ('${this.listName}', '${this.idUser}')`;
 
     db.query(sql, function (err, result) {
       if (err) throw err;
-      //   console.log(result, "ici");
 
       if (result) return cb(result);
       return cb(null);

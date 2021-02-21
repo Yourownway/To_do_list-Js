@@ -6,7 +6,6 @@ exports.getUserById = async (req, res) => {
       return res.status(400).json({ err: "utilisateur inconnu" });
     }
     // let { id, userName, userEmail } = (data = result);
-    // console.log(data, "data");
     return res.status(200).json({ User: result });
   });
 };

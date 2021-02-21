@@ -4,24 +4,28 @@ class Task {
     this.taskName = taskData.taskName;
     this.idTask = taskData.idTask;
     this.idList = taskData.idList;
+    this.columnName = taskData.columnName;
+    this.columnId = this.taskData.columnId;
   }
   createTask(cb) {
-    console.log(this.taskName, "taskData");
     let sql = `INSERT INTO Tasks ( taskName, idList) VALUES ('${this.taskName}', '${this.idList}')`;
 
     db.query(sql, function (err, result) {
       if (err) throw err;
-      //   console.log(result, "ici");
 
       if (result) return cb(result);
       return cb(null);
     });
   }
-  static getById(id, cb) {
-    db.query("SELECT * FROM Tasks WHERE idTask = ?", id, (err, result) => {
-      if (err) throw err;
-      cb(result);
-    });
+  static getAll(id, cb) {
+    db.query(
+      "SELECT * FROM Tasks WHERE Tasks.idList = ?",
+      id,
+      (err, result) => {
+        if (err) throw err;
+        cb(result);
+      }
+    );
   }
   static update(data, cb) {
     db.query(

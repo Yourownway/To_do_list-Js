@@ -7,7 +7,6 @@ var connexion = mysql.createConnection({
   password: process.env.DB_PASS,
   database: "to_do_list",
 });
-console.log("db");
 connexion.connect((err) => {
   if (err) {
     return console.error("error: " + err.message);
