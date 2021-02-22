@@ -1,5 +1,7 @@
+const { v1: uuidv1 } = require("uuid");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+
 const checkEmail = (data) => {
   return new Promise((resolve) => {
     User.findByEmail(data, (result) => {
@@ -21,7 +23,9 @@ exports.signUp = async (req, res) => {
       bcrypt.hash(userPassword, saltRounds, function (err, hash) {
         if (err) throw err;
         if (hash) {
+          data.id = uuidv1();
           let newUser = new User(data);
+          console.log(newUser, "iciii");
           newUser.userPassword = hash;
           newUser.createUser((result) => {
             if (result) {

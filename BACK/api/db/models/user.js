@@ -34,7 +34,7 @@ class User {
   }
 
   createUser(cb) {
-    const sql = `INSERT INTO Users (userEmail, userPassword,   userName) VALUES ('${this.userEmail}', '${this.userPassword}','${this.userName}')`;
+    const sql = `INSERT INTO Users (id,userEmail, userPassword,userName) VALUES ('${this.id}','${this.userEmail}', '${this.userPassword}','${this.userName}')`;
 
     db.query(sql, function (err, result) {
       if (err) throw err;

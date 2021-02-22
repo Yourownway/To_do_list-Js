@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS Columns
 );
 CREATE TABLE IF NOT EXISTS Tasks
 (
-    idTask VARCHAR(36) PRIMARY KEY ,
+    idTask VARCHAR(36) PRIMARY KEY , /*for beautiful dnd*/
     taskName VARCHAR(100),
     idColumn INT,
     idList INT,
@@ -50,9 +50,9 @@ INSERT INTO Columns (`idColumn`,`columnName`, `idList`) VALUES
 (2,'Doing', 1),
 (3,'Done', 1);
 INSERT INTO Tasks (`idTask`,`taskName`, `idColumn`,`idList`) VALUES 
-(100,'Mettre en place la db', 1,1),
-(101,'Mettre en place l authentification', 2,1),
-(102,'Mettre en place les requettes', 3,1);
+(UUID(),'Mettre en place la db', 1,1),
+(UUID(),'Mettre en place l authentification', 2,1),
+(UUID(),'Mettre en place les requettes', 3,1);
 
 
 
