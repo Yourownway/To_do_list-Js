@@ -2,7 +2,7 @@ CREATE DATABASE IF NOT EXISTS to_do_list;
 USE to_do_list;
 CREATE TABLE Users
 (
-    id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    id VARCHAR(36) PRIMARY KEY  NOT NULL,
     userName VARCHAR(100),
     userEmail VARCHAR(255),
     userPassword VARCHAR(100)
@@ -10,15 +10,15 @@ CREATE TABLE Users
 
 
 
-CREATE TABLE Lists
+CREATE TABLE IF NOT EXISTS Lists
 (
     idList INT PRIMARY KEY AUTO_INCREMENT,
     listName VARCHAR(100),
-    idUser INT,
+    idUser VARCHAR(36),
     FOREIGN KEY (idUser) REFERENCES Users(id) 
     ON DELETE CASCADE
 );
-CREATE TABLE Columns
+CREATE TABLE IF NOT EXISTS Columns
 (
     idColumn INT PRIMARY KEY AUTO_INCREMENT,
     columnName VARCHAR(100),
@@ -26,9 +26,9 @@ CREATE TABLE Columns
     FOREIGN KEY (idList) REFERENCES Lists(idList)
     ON DELETE CASCADE
 );
-CREATE TABLE Tasks
+CREATE TABLE IF NOT EXISTS Tasks
 (
-    idTask INT PRIMARY KEY AUTO_INCREMENT,
+    idTask VARCHAR(36) PRIMARY KEY ,
     taskName VARCHAR(100),
     idColumn INT,
     idList INT,
@@ -37,13 +37,13 @@ CREATE TABLE Tasks
 );
 
 INSERT INTO Users (`id`, `userName`, `userEmail`, `userPassword`) VALUES 
-(1,'Lorris','Lorris@gmail.fr','azerty'),
-(2,'John','John@gmail.com','azerty');
+('056b8801-754e-11eb-8596-185e0f16b26e','Lorris','Lorris@gmail.fr','azerty'),
+(UUID(),'John','John@gmail.com','azerty');
 
 
-INSERT INTO Lists (`idList`, `ListName`, `idUser`) VALUES 
-(1,'Projet TodoList', 1),
-(2,'Projet Portfolio',1);
+INSERT INTO Lists (`idList`, `ListName`,`idUser`) VALUES 
+(1,'Projet TodoList','056b8801-754e-11eb-8596-185e0f16b26e'),
+(2,'Projet Portfolio','056b8801-754e-11eb-8596-185e0f16b26e');
 
 INSERT INTO Columns (`idColumn`,`columnName`, `idList`) VALUES 
 (1,'ToDo', 1),
