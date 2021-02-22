@@ -1,10 +1,12 @@
 const Task = require("../models/task");
-
+const { v1: uuidv1 } = require("uuid");
 exports.createNewTask = async (req, res) => {
-  let { taskName } = req.body;
-  let { idList } = req.params;
+  let { taskName, idColumn, idList } = (data = req.body);
 
-  let newTask = new Task({ taskName, idList });
+  data.idTask = uuidv1();
+
+  let newTask = new Task(data);
+  console.log(idColumn, taskName);
   await newTask.createTask((result) => {
     if (result === null)
       return res

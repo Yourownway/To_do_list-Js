@@ -27,7 +27,7 @@ class Router {
     //tasks
     router.route("/:idTask/task").get(taskController.getTaskById);
     router.route("/:idList/tasks").get(taskController.getAllTask);
-    router.route("/task/create/:idUser").post(taskController.createNewTask);
+    router.route("/task/create").post(taskController.createNewTask);
     router
       .route("/task/:idTask/update/:idUser")
       .patch(taskController.updateTask);

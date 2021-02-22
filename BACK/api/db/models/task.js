@@ -5,10 +5,10 @@ class Task {
     this.idTask = taskData.idTask;
     this.idList = taskData.idList;
     this.columnName = taskData.columnName;
-    this.columnId = this.taskData.columnId;
+    this.idColumn = taskData.idColumn;
   }
   createTask(cb) {
-    let sql = `INSERT INTO Tasks ( taskName, idList) VALUES ('${this.taskName}', '${this.idList}')`;
+    let sql = `INSERT INTO Tasks (idTask, taskName, idList,idColumn) VALUES ('${this.idTask}','${this.taskName}', '${this.idList}', '${this.idColumn}')`;
 
     db.query(sql, function (err, result) {
       if (err) throw err;
